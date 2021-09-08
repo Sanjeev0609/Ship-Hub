@@ -27,7 +27,7 @@ body{
   /* Add some padding inside the card container */
   .container {
     box-align: middle;
-    padding: 2px 16px;
+    padding: 2px 8px;
     margin: 0 auto;
     color: azure;
     text-align: center;
@@ -63,9 +63,46 @@ body{
 
     #register_button{
         background-color: #5D5FEF;
+        margin: 0 auto;
         border-radius: 25px;
         margin-top: 10px;
         width: 200px;
         height: 33px;
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
+
+    .ship_card {
+    
+    
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: #413C3C;
+    width: 1000px;
+    height: 600px;
+    margin: 0 auto;
+    align-items: center;
+    border-radius: 25px;
+    overflow: scroll;
+    }
+    
+   
+    
+    .ship_container {
+    box-align: middle;
+    padding: 2px 8px;
+    margin: 0 auto;
+    color: azure;
+    text-align: center;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  tr{
+    height: 65px;
+  }
+
+    

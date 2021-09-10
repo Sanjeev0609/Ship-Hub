@@ -179,5 +179,28 @@ body{
 
 .map-table{
   color: white;
+  margin-left: 220px;
   
 }
+
+/** Mycode **/
+.container {
+  background-color: rgb(240, 250, 247);
+  min-height: 320px;
+  overflow: auto;
+  padding: 0px 10px;
+}
+.left {
+  float: left; /* ADD THIS */
+  width: 60%;
+  margin-right: 20px;
+}
+.right {
+  width: 30%;
+  height: 380px; 
+  background-color: #999999;
+  float: right;
+  margin-top: 220px;
+  margin-right: 160px;
+}
+/** Mycode **/

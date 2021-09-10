@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firshermen's Guardian</title>
+    <link rel="stylesheet" href="intro_styles.css">
+ 
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js">
+    
+    
+    </script>
+
+<script >
+  function fun1(){
+      
+      var animate=document.getElementById("intro_animation")
+      animate.classList.remove("intro_animation")
+       animate.style.display="block"
+     }
+setTimeout(fun1,3000)
+
+
+function fun2(){
+ window.location.replace("signin.html");
+}
+setTimeout(fun2,7000)
+
+</script>
+</head>
+<body>
+    <section>
+   <div class="container">
+    <img src="new_logo.png" alt="class">
+       <span class="text1">Firshermens Guardian</span>
+       <span class="text2">Your Virtual Life Guard</span>
+
+
+    </div>
+    <div class="intro_animation" id="intro_animation"style="display: none;">
+  <lottie-player class="loading" src="https://assets8.lottiefiles.com/packages/lf20_s5pkbmqg.json"  background="transparent"  speed="0.5"  style="width: 100px; height: 100px;"  loop autoplay ></lottie-player>  
+</div>
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+ 
+
+	<script src="https://kit.fontawesome.com/5b1503190b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style_signin.css">
+
+    <meta charset="UTF-8">
+
+    <title>Sign Up</title>
+
+	<script>
+	const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+
+
+function fun2(){
+	const container = document.getElementById('container');
+	container.classList.remove("right-panel-active");
+}
+
+
+function fun1(){
+	const container = document.getElementById('container');
+	container.classList.add("right-panel-active");
+	
+}
+	</script>
+
+<!--<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>-->
+
+<!--<script>
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyDqWlhtn6o-4LE029fw-hUJMpYvo70l6wg",
+    authDomain: "projectvit-2c739.firebaseapp.com",
+    projectId: "projectvit-2c739",
+    storageBucket: "projectvit-2c739.appspot.com",
+    messagingSenderId: "796748382662",
+    appId: "1:796748382662:web:ecb3f47393fc1ac55e32c7",
+    measurementId: "G-M7Y0W5GKQ3"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+-->
+
+
+
+<body>
+   
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#">
+			<h1>Create Account</h1>
+			<div class="social-container">
+				<a href="#" class="social-1"><i class="fab fa-facebook-f"></i></a>
+				
+				<a href="#" class="social-2"><i class="fab fa-google"></i></a>
+				<a href="#" class="social-3"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your email for registration</span>
+			<input id="signup_name" type="text" placeholder="Name" />
+			<input  id="signup_email" type="email" placeholder="Email" />
+			<input id="signup_password" type="password" placeholder="Password" />
+			<button id="si" onclick="signup()" >Sign Up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="map.html">
+			<h1>Sign in</h1>
+			<div class="social-container">
+				<a href="#" class="social-1"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social-2"><i class="fab fa-google"></i></a>
+				<a href="#" class="social-3"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your account</span>
+			<input id="signin_email" type="email" placeholder="Email" />
+			<input id="signin_password" type="password" placeholder="Password" />
+			<a href="#">Forgot your password?</a>
+			<a href="map.html"><button  id="signin1" >Sign In</button></a>
+			<script type="text/javascript">
+				document.getElementById("signin1").onclick = function () {
+					location.href = "map.html";
+				};
+			</script>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To stay connected with us please login with your personal info</p>
+				<button onclick="fun2()" class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>New Here?</h1>
+				<p>Enter your personal details to get started </p>
+				<button  onclick="fun1()"class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="alert" class="alert hide ">
+<span class="fas fa-exclamation-circle"></span>
+<span id="alert_message">Waring!This message is waring</span>
+<span onclick="close_alert" id ="close_btn"class="close-btn">
+<span class="fas fa-times" onclick="close_alert"></span>
+</span>
+</div>
+</div>
+</body>
+</html>
+

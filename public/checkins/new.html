@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script type = "text/javascript">
+    link = "https://api.openweathermap.org/data/2.5/weather?lat=8.1832857&lon=77.4118996&units=metric&appid=58679423b4cf3b783af2810ad805e0ee"
+    var request = new XMLHttpRequest();
+    request.open('GET',link,true);
+    request.onload = function(){
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        console.log(obj.name);
+        document.getElementById('weather').innerHTML = obj.weather[0].description;
+        document.getElementById('location').innerHTML = obj.name;
+        document.getElementById('temp').innerHTML = obj.main.temp ;
+        document.getElementById('icon').src = "http://openweathermap.org/img/w/"+obj.weather[0].icon+".png";
+    }
+    if(request.status==200){
+        console.log("ERROR");
+    }
+    request.send();
+</script>
+<body>
+    
+    <h2><span id="location" ></span></h2>
+    <h4><span id="temp" ></span></h4>
+    <h4 id="weather"></h4>
+    <img src="" id="icon">
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.771694361527!2d77.32845371410036!3d8.124711804733654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04fb27374badc9%3A0x773641a0494648d7!2sJeppiaar%20Fishing%20Harbour!5e0!3m2!1sen!2sin!4v1631294090563!5m2!1sen!2sin" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    
+</body>
+</html>

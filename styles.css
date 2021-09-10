@@ -171,5 +171,13 @@ body{
   
   }
 
+.map-conatainer{
+  margin-top: 15px;
+  color: #555555;
+  float: right;
+}
 
-    
+.map-table{
+  color: white;
+  
+}

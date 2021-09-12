@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                     <td>21jph007</td>
-                    <td>05:01:49(20/08/2021) </td>
+                    <td>05:01:49(20/08/2021) </td> 
                     <td >40 40.48N</td>
                     <td >63 23.78E</td>
                 </tr>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="right_align" >
-        <label for="alert">Alert      : </label>
+        <h4 style="color: aliceblue;"><b>Alert</b></h4>
         <select id="alerts" name="alert">
             <option value="border_alert">Border Alert</option>
             <option value="climate_alert">Climate Alert</option>
@@ -82,14 +82,22 @@
     </div>
 
     <div class="bottom_right_align" >
-        <h4 style="text-align: center;"><b>Send Alerts</b></h4>
+        <h4 style="text-align: center;color: aliceblue;"><b>Send Alerts</b></h4>
+
+        <input type="radio" id="radio_alerts" name="fav_language" value="HTML">
+        <label for="radio_alerts"><input type="ship_id" id="ship_id" name="email"  placeholder="Enter Ship ID"><br><br></label><br>
+        <input type="radio" id="radio_alerts" name="fav_language" value="HTML">
+        <label for="radio_alerts">
         <label for="alert"> </label>
         <select id="send_alert" name="alert">
-            <option value="border_alert">Border Alert</option>
-            <option value="climate_alert">Climate Alert</option>
-            
+            <option value="border_alert">All Active Ships</option>
+            <option value="climate_alert">Heli Squad</option>
+            <option value="climate_alert">Both</option>
         </select>
+        </label>    
     </div>
+
+    <button type ="button" id ="send_alert_button"><b>SEND ALERT</b></button>
     
     
 </body>

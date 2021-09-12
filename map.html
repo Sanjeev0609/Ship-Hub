@@ -1,65 +1,101 @@
 <!DOCTYPE html>
-<html>
-    <head>
- main
-        <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
-        <title>map</title>
 
-        <title>map_testing4</title>
-sanjeev
-        <style>
-            * {
-                padding: 0;
-                margin: 0;
-            }
-            #map{
-                height: 800px;
-                width:1000px;
-            }
-        </style>
-    </head>
-    <script>
-        function initMap(){
-            var location = {lat:8.088306,lng:77.538452};
-            var map = new google.maps.Map(document.getElementById("map"),{
-                zoom:4,
-                center: location
-            });
-            var marker = new google.maps.marker({
-                position: location,
-                map: map
-            });
-        }
-        
-    </script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6gLOR8qGDJzSPZVN4v3oLiPyHscPY26E&callback=initMap">
-            </script>
-    <body>
-        <div class="container">
-            <div class="left">
-                <div id="map">
-                </div>
-            </div>
-            <div class="right">
-                <div class="map-container" >
-                    <h2 ><b>SHIP HUB</b></h2>
-                    <table class="map-table">
-                        <tr>
-                            <th><b> <button type="submit">  Ship ID</button></b></th>     
-                        </tr>
-                        <tr>
-                            <td> <button type="submit">ALERT</button></td> 
-                        </tr>
-                        <tr>
-                            <td> <button type="submit">SEARCH</button></td> 
-                        </tr>
-                        <tr>
-                            <td> <button type="submit">WINDSPEED</button></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+<html> 
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>Google Maps Multiple Markers</title> 
+  <link rel="stylesheet" href="styles.css">
+  <script type = "text/javascript">
+    link = "https://api.openweathermap.org/data/2.5/weather?lat=8.1832857&lon=77.4118996&units=metric&appid=58679423b4cf3b783af2810ad805e0ee"
+    var request = new XMLHttpRequest();
+    request.open('GET',link,true);
+    request.onload = function(){
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        console.log(obj.name);
+        document.getElementById('weather').innerHTML = obj.weather[0].description;
+        document.getElementById('location').innerHTML = obj.name;
+        document.getElementById('temp').innerHTML = obj.main.temp ;
+        document.getElementById('pressure').innerHTML = obj.main.pressure;
+        document.getElementById('humidity').innerHTML = obj.main.humidity;
+        document.getElementById('sea_level').innerHTML = obj.main.sea_level;
+        document.getElementById('wind_speed').innerHTML = obj.wind.speed;
+        document.getElementById('icon').src = "http://openweathermap.org/img/w/"+obj.weather[0].icon+".png";
+    }
+    if(request.status==200){
+        console.log("ERROR");
+    }
+    request.send();
+</script>
+</head> 
+<body>
+    <table cellpadding="0" cellspacing = "0" style="width: 100%;">
+        <tr>
+            <td><script async defer src="https://maps.googleapis.com/maps/api/js?
+                key=AIzaSyD6gLOR8qGDJzSPZVN4v3oLiPyHscPY26E&callback=initMap"></script>
+                <div id="map" style="width: 1100px; height: 600px;"></div></td>
+             <td id ="right_td">
+                <h2>SHIP HUB</h2>
+                <button id="ship_btn"type="submit" onclick="location.href='ships.html'">SHIPS</button>
+                <button id="ship_btn"type="submit" onclick="location.href='alerts.html'">ALERTS</button>
+                <button id="ship_btn"type="submit">SEARCH</button>
+                <h3><span id="location" ></span></h3>
+                <h4><span id="temp" ></span>  degree Celsius</h4>
+                <h4>Pressure: <span id="pressure"></span> millibars</h4>
+                <h4>Humidity: <span id="humidity"></span> g/m^3</h4>
+                <h4>Sea Level: <span id="sea_level"></span> m</h4>
+                <h4>WindSpeed: <span id="wind_speed"></span> km/hr</h4>
+                <h4 id="weather"></h4>
+                <img src="" id="icon">
+            </td>   
             
-        </div>
-    </body>
+        </tr>
+    </table>
+  
+
+  <script type="text/javascript">
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: { lat: 8.103400, lng: 77.321866 },
+        mapTypeId: "terrain",
+  });
+  const flightPlanCoordinates = [
+    { lat: 8.070387, lng: 77.319296 },
+    { lat: 8.122666, lng: 77.322418 }
+  ];
+
+  const labels=[
+    'Hub',
+    '21jph001'
+  ]
+  let labelIndex = 0;
+  for (i = 0; i < flightPlanCoordinates.length; i++) { 
+  new google.maps.Marker({
+    position: flightPlanCoordinates[i],
+    map,
+    label : labels[++labelIndex % labels.length],
+    
+  });
+}
+
+  const flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: "#e2dbdb",
+    strokeOpacity: 1.0,
+    strokeWeight: 1,
+  });
+
+  flightPath.setMap(map);
+}
+
+
+   
+    
+  </script>
+</body>
 </html>
+
+        
+ 

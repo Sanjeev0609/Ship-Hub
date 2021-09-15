@@ -29,19 +29,22 @@
         color: ghostwhite;
       }
   .button {
-  border-radius: 4px;
-  background-color: black;
+  border-radius: 10px;
+  background-color: orangered;
   border: none;
-  color: white;
-  text-shadow: 2px 2px 5px blue;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 5px rgb(56, 0, 0);
   text-align: center;
+  position: relative;
+  right: 50px;
   font-size: 25px;
   padding: 0;
-  width: 0;
-  height: 0;
+  width: 140px;
+  height: 35px;
   transition: all 0.5s;
   cursor: pointer;
   margin: 3px;
+  margin-top: 8px;
 }
 
 .button span {
@@ -74,7 +77,7 @@
 
   <body>
 <div class="main">
-    <h1>Fisherman's Gaurdian</h1>
+    <h1>Fisherman's Guardian</h1>
     <h3>Fisherman Alert's Surveillance</h3>
 
 <div class="alert_card">
@@ -86,54 +89,64 @@
                     <th><b>Ship ID</b></th>
                     <th><b>Time</b></th>
                     <th colspan="2"><b>Location</b></th>
+                    <th><b>Type of Alert</b></th>
+                    <th><b>Status</b></th>
                 </tr>
                 <tr>
                     <td>21jph007</td>
                     <td>05:01:49(20/08/2021) </td> 
                     <td >40 40.48N</td>
                     <td >63 23.78E</td>
+                    <td>Need Boat Assistance</td>
                 </tr>
                 <tr>
                     <td>21jph001</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Border Dispute</td>
                 </tr>
                 <tr>
                     <td>21jph003</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Medical Issue</td>
                 </tr>
                 <tr>
                     <td>21jph003</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Need Boat Assistance</td>
                 </tr>
                 <tr>
                     <td>21jph008</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Border Dispute</td>
                 </tr>
                 <tr>
                     <td>21jph010</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Medical Issue</td>
                 </tr>
                 <tr>
                     <td>21jph009</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Border Dispute</td>
                 </tr>
                 <tr>
                     <td>21jph001</td>
                     <td>06:01:49(26/08/2021) </td>
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
+                    <td>Border Dispute</td>
                 </tr>
             </table>
 
@@ -145,14 +158,14 @@
         <div class="hover panel">
           <div class="front">
             <div class="box1">
-              <p style="font-family: sans-serif;font-size: 25px;color: black;text-shadow: 2px 2px 5px red;">Emergency?</p>
-              <img src="alert.png">
+              <h3 style="color: black;text-shadow: 2px 2px 5px red;">Emergency?</h3>
+              <img src="alert.png" style="border: 10px;height: 100px;width: 100px;">
             </div>
           </div>
           <div class="back">
             <div class="box2">
                   <div class="right_align" >
-                      <h4 style="color: black;text-shadow: 2px 2px 5px red;"><b>Prompt them?</b></h4>
+                      <h3 style="color: black;text-shadow: 2px 2px 5px red;"><b>Prompt them?</b></h3>
                       <select id="alerts" name="alert">
                           <option value="border_alert">Border Alert</option>
                           <option value="climate_alert">Climate Alert</option>
@@ -168,26 +181,27 @@
         <div class="hover panel">
           <div class="front">
             <div class="box3">
-              <h5 style="font-family: sans-serif;font-size: 20px;color: black;text-shadow: 2px 2px 5px blue;">Transmit Signal</h5>
+              <h3 style="color: black;text-shadow: 2px 2px 5px blue;">Transmit Signal</h3>
               <img src="usetower.png">
             </div>
           </div>
           <div class="back">
             <div class="box4">
                   <div class="right_align" >
-                    <h4 style="text-align: center;color: black;text-shadow: 2px 2px 5px blue;"><b>Transmit To?</b></h4>
+                    <h3 style="text-align: center;color: black;text-shadow: 2px 2px 5px red;"><b>Transmit To?</b></h3>
 
                     <input type="radio" id="radio_alerts" name="fav_language" value="HTML">
                     <label for="radio_alerts"><input type="ship_id" id="ship_id" name="email"  placeholder="Enter Ship ID"></label><br>
                     <input type="radio" id="radio_alerts" name="fav_language" value="HTML">
                     <label for="radio_alerts">
-                    <label for="alert"></label>
+                    <label for="alerts"></label>
                     <select id="send_alert" name="alert">
                         <option value="border_alert">All Active Ships</option>
                         <option value="climate_alert">Heli Squad</option>
                         <option value="climate_alert">Both</option>
                     </select>
                     </label> 
+                    <br>
                     <button class="button" id ="send_alert_button"><span>Transmit</span></button>   
                   </div>
             </div>

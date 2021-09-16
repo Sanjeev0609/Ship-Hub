@@ -40,7 +40,7 @@
  </script>
 
 
-                <div id="map" style="width: 1130px; height: 720px;"></div>
+                <div id="map" style="width: 100%; height: 720px;"></div>
 </div>
                 <div class="col-sm-3 right_td">
                     <h2>SHIP HUB</h2>
@@ -63,79 +63,104 @@
  </div>
  </div>
 
- <script type="text/javascript">
-  function initMap() {
-      const hub = {lat: 8.122666, lng: 77.322418};
-map = new google.maps.Map(document.getElementById('map'), {
-  zoom: 14,
-  center: new google.maps.LatLng(8.120018, 77.323993)
-});
-markerhub = new google.maps.Marker({
-    position : hub,
-    map:map,
-    label:"Hub"
-})
-marker = new google.maps.Marker({
-      position : {lat:8.120018,lng:77.323993},
-      map: map,
-      label:"21jph001"
-});
+<script type="text/javascript">
+    var p = [0,0];
+    function initMap() {
+        const hub = {lat: 8.122808, lng: 77.321809};//8.122808, 77.321809
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: new google.maps.LatLng(8.120153, 77.321820)
+        });
+        markerhub = new google.maps.Marker({
+          position : hub,
+          map:map,
+          label:"Hub"
+        })
 
 
-marker.setPosition(map.getCenter());
 
-/*var flightPath = new google.maps.Polyline({
-  path: flightPlanCoordinates,
-  geodesic: true,
-  strokeColor: "#FF0000",
-  strokeOpacity: 1.0,
-  strokeWeight: 2,
-});*/
+      marker = new google.maps.Marker({
+        position : {lat:8.120153,lng:77.321820},//8.120153, 77.321820
+        map: map,
+        label:"21jph001"
+      });
 
-map.addListener('click', function(e) {
-  animatedMove(marker, .5, marker.position, e.latLng);
-});
-}
-google.maps.event.addDomListener(window, 'load', initMap);
 
-// move marker from position current to moveto in t seconds
-function animatedMove(marker, t, current, moveto) {
-var lat = current.lat();
-var lng = current.lng();
+      marker.setPosition(map.getCenter());
 
-var deltalat = (moveto.lat() - current.lat()) / 100;
-var deltalng = (moveto.lng() - current.lng()) / 100;
-//flightPath.setMap(map);
 
-var delay = 300 * t;
-for (var i = 0; i < 100; i++) {
-  (function(ind) {
-    setTimeout(
-      function() {
-        var lat = marker.position.lat();
-        var lng = marker.position.lng();
-        lat += deltalat;
-        lng += deltalng;
-        
-        //flightPlanCoordinates[1] = {lat:marker.getPosition().lat()+deltalat,lng:marker.getPosition().lng()+deltalng};
-        
-        latlng = new google.maps.LatLng(lat, lng);
-        marker.setPosition(latlng);
-          
-      }, delay * ind
-    );
+      var x = 0;
+
+      map.addListener('click', function(e) {
+        animatedMove(marker, .5, marker.position, e.latLng);
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initMap);
     
-  })(i)
+// move marker from position current to moveto in t seconds
+    function animatedMove(marker, t, current, moveto) {
+      var lat = current.lat();
+      var lng = current.lng();
+
+      var deltalat = (moveto.lat() - current.lat()) / 100;
+      var deltalng = (moveto.lng() - current.lng()) / 100;
   
-}
-
-
-}
+      
+      var delay = 300 * t;
+  
+      for (var i = 0; i < 100; i++) {
+        
+        (function(ind) {
+          setTimeout(
+            function() {
+              
+              var lat = marker.position.lat();
+              var lng = marker.position.lng();
+              lat += deltalat;
+              lng += deltalng;
+              
+              
+                p[0] = lat;
+                p[1] = lng;
+                
+              
+              //console.log(p[0]);
+              
+        //flightPlanCoordinates[1] = {lat:marker.getPosition().lat()+deltalat,lng:marker.getPosition().lng()+deltalng};
+              
+              latlng = new google.maps.LatLng(lat, lng);
+              marker.setPosition(latlng);
+              const flightPlanCoordinates = [
+                { lat: 8.122808, lng: 77.321809 },
+                { lat: p[0], lng: p[1] },
+    
+              ];
+              
+              const flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: "#FFFFFF",
+                strokeOpacity: 0.2,
+                strokeWeight: 1,
+              });
+              flightPath.setMap(map);
+              //flightPath.setMap(null);
+              
+            }, delay * ind
+            
+          );
+          
+        })(i)
+        
+      }
+      
+      
+    
+    }
+    
+    
 
 </script>
-
-
-
 
 </body>
 </html>

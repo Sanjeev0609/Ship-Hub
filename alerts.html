@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <title>Alerts</title>
     <link rel="stylesheet" href="alertstyles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+
     <style type="text/css">
+
       body {
           background-image: url("bac.jpg");
           background-size: auto;
+ padding: 0;
+ margin: 0;
       } 
       img{
           height: 120px;
@@ -17,6 +27,7 @@
         text-align: left;
         font-family: "Lucida Console", "Courier New", monospace;
         color: white;
+
         text-shadow: 2px 2px;
       }
       h3{
@@ -71,13 +82,89 @@
   opacity: 1;
   right: 0;
 }
+.blink-bg{
+		color: #fff;
+	
+
+
+		animation: blinkingBackground 2s infinite;
+	}
+	@keyframes blinkingBackground{
+		0%		{ background-color: #E21717;}
+		25%		{ background-color: #E21717;}
+		50%		{ background-color: #B4161B;}
+		75%		{ background-color:#EB4D4B;}
+		100%	        { background-color: #E21717;}
+	}
+.Invisible{
+  visibility: collapse;
+
+}
+.Visible{
+  visibility: visible;
+}
+.alertanimation{
+ width: 200px; 
+ height: 200px; 
+position: absolute;
+  padding: 0;
+  top:0;
+
+  left: 0%;
+
+}
+
 </style>
 
   </head>
+<script>
+   const firebaseConfig = {
+    apiKey: "AIzaSyBHuyDvGHCk92E2FPZCF_BsL3mCVXK3iBQ",
+    authDomain: "fisherman-s-guardian.firebaseapp.com",
+    databaseURL: "https://fisherman-s-guardian-default-rtdb.firebaseio.com",
+    projectId: "fisherman-s-guardian",
+    storageBucket: "fisherman-s-guardian.appspot.com",
+    messagingSenderId: "467835259902",
+    appId: "1:467835259902:web:3456a7b660bb145069ceaf",
+    measurementId: "G-V31DCS1X5D"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+ database=firebase.database()
+ var ref=database.ref('UserAlerts')
+ var ref2=database.ref('AdminAlerts')
+  function shownotification(){  
+ ref2.push("newalert")
+  }
 
+ ref.on('value',gotData,errData)
+ function gotData(data){
+   if(data.val()==null){
+  console.log("null")
+   }else
+    {
+      var datetime =  new Date().toLocaleString();
+   document.getElementById("alertTime").innerHTML=datetime
+   var element = document.getElementById("alertrow");
+  element.classList.remove("Invisible");
+  element.classList.add("Visible");
+
+    }
+ }
+ function errData(err){
+   alert("error")
+ }
+
+</script>
   <body>
-<div class="main">
-    <h1>Fishermen's Guardian</h1>
+
+    <div class="tilte">
+      <h1>Fishermen's Guardian</h1>
+      <lottie-player  class="alertanimation" src="https://assets7.lottiefiles.com/private_files/lf30_kvlctl05.json"
+      background="transparent"  speed="0.8"   loop  autoplay></lottie-player>
+    </div>
+  
+   
     <h3>Fishermen Alert's Surveillance</h3>
 
 <div class="alert_card">
@@ -92,12 +179,13 @@
                     <th><b>Type of Alert</b></th>
                     <th><b>Status</b></th>
                 </tr>
-                <tr style="visibility:collapse;">
-                  <td><script></script></td>
-                  <td><script></script></td>
-                  <td><script></script></td>
-                  <td><script></script></td>
-                  <td><script></script></td>
+                <tr id="alertrow" class="Invisible blink-bg ">
+                  <td id="shipid">21jph012</td>
+                  <td id="alertTime">time</td>
+                  <td >40 40.48N</td>
+                  <td >63 23.78E</td>
+                  <td>Need BoatAssistance</td>
+                  <td><img style="width: 40px; height: 40px;" src="pending.png"> </td>
                 </tr>
                 <tr>
                     <td>21jph007</td>
@@ -105,6 +193,7 @@
                     <td >40 40.48N</td>
                     <td >63 23.78E</td>
                     <td>Need Boat Assistance</td>
+                    <td><img style="width: 40px; height: 40px;" src="tick.png"> </td>
                 </tr>
                 <tr>
                     <td>21jph001</td>
@@ -112,6 +201,7 @@
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
                     <td>Border Dispute</td>
+                    <td><img style="width: 40px; height: 40px;" src="tick.png"> </td>
                 </tr>
                 <tr>
                     <td>21jph003</td>
@@ -119,6 +209,7 @@
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
                     <td>Medical Issue</td>
+                    <td><img style="width: 40px; height: 40px;" src="tick.png"> </td>
                 </tr>
                 <tr>
                     <td>21jph003</td>
@@ -126,6 +217,7 @@
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
                     <td>Need Boat Assistance</td>
+                    <td><img style="width: 40px; height: 40px;" src="tick.png"> </td>
                 </tr>
                 <tr>
                     <td>21jph008</td>
@@ -133,28 +225,9 @@
                     <td >30 40.48N </td>
                     <td >123 23.78E</td>
                     <td>Border Dispute</td>
+                    <td><img style="width: 40px; height: 40px;" src="tick.png"> </td>
                 </tr>
-                <tr>
-                    <td>21jph010</td>
-                    <td>06:01:49(26/08/2021) </td>
-                    <td >30 40.48N </td>
-                    <td >123 23.78E</td>
-                    <td>Medical Issue</td>
-                </tr>
-                <tr>
-                    <td>21jph009</td>
-                    <td>06:01:49(26/08/2021) </td>
-                    <td >30 40.48N </td>
-                    <td >123 23.78E</td>
-                    <td>Border Dispute</td>
-                </tr>
-                <tr>
-                    <td>21jph001</td>
-                    <td>06:01:49(26/08/2021) </td>
-                    <td >30 40.48N </td>
-                    <td >123 23.78E</td>
-                    <td>Border Dispute</td>
-                </tr>
+             
             </table>
 
              

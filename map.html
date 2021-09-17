@@ -3,101 +3,9 @@
 <html> 
 <head> 
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHIP-HUB</title> 
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
-    
-    
-    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
-  <style>
-  .Invisible{
-    display:none;
-  }
-    .alert-box{
-    position: absolute;
-    right: 0;
-    background-color:#E21717 ;
-    font-size: 22px;
-    padding: 15px 40px 15px 15px;
-    top: 10px;
-  min-width: 350px;
-  }
-  .alert-box .close-alert{
-    font-size: 20px;
-    position: absolute;
-    right: 10px;
-    top:15px;
-    cursor: pointer;
-    z-index: 3;
-  }
-  .alert-box.show::before{
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 4px;
-    bottom: 0;
-    background-color: #ffffff;
-    width: 100% ;
-    box-sizing: border-box;
-    z-index: 3;
-    animation: hideMeter 7s linear;
-  }
-  @keyframes hideMeter {
-    0%{
-width: 100%;
-    }
-    100%{
-width: 0;
-    }
-
-    
-  }
-  .alert-box.show{
-    animation: showAlert 1.5s ease forwards;
-
-
-  }
-  @keyframes showAlert {
-    0%{
-    transform: translateX(100%);
-    }
-    40%{
-  transform: translateX(-15%);
-    }
-    80%{
-transform: translateX(0%);
-    }
-    100%{
-  transform: translateX(-10px);
-    }
-  }
-  .alert-box.hide{
-    animation: hideAlert 1.5s ease forwards;
-
-
-  }
-  @keyframes hideAlert {
-    0%{
-    transform: translateX(-10px);
-    }
-    40%{
-  transform: translateX(0%);
-    }
-    80%{
-transform: translateX(-15%);
-    }
-    100%{
-  transform: translateX(100%);
-    }
-  }
-  .hidden{
-    visibility: hidden;
-  }
-</style>
+  <title>Google Maps Multiple Markers</title> 
   <script type = "text/javascript">
-  
+
     link = "https://api.openweathermap.org/data/2.5/weather?lat=8.1832857&lon=77.4118996&units=metric&appid=58679423b4cf3b783af2810ad805e0ee"
     var request = new XMLHttpRequest();
     request.open('GET',link,true);
@@ -118,194 +26,478 @@ transform: translateX(-15%);
         console.log("ERROR");
     }
     request.send();
+
 </script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBHuyDvGHCk92E2FPZCF_BsL3mCVXK3iBQ",
-    authDomain: "fisherman-s-guardian.firebaseapp.com",
-    databaseURL: "https://fisherman-s-guardian-default-rtdb.firebaseio.com",
-    projectId: "fisherman-s-guardian",
-    storageBucket: "fisherman-s-guardian.appspot.com",
-    messagingSenderId: "467835259902",
-    appId: "1:467835259902:web:3456a7b660bb145069ceaf",
-    measurementId: "G-V31DCS1X5D"
-  };
-  
-  firebase.initializeApp(firebaseConfig);
- database=firebase.database()
- var ref=database.ref('UserAlerts')
- ref.on('value',gotData,errData)
- function gotData(data){
-   if(data.val()==null){
-  console.log("null")
-   }else
+<style type="text/css">
+    *{padding:0;margin:0;}
 
-    { showalert()
-  
-      }
-      
-function showalert(){
-  const element = document.getElementById("alertbox");
-  // element.classList.remove("hide")
-  //     element.classList.add("show");
-      //if(element.classList.contains("hidden")){
-       
-        element.classList.remove("hidden")
-        element.classList.add("show")
-       
-        var audio=document.getElementById("audio1")
-       audio.play()
-      }
- }
- function errData(err){
-   alert("error")
- }
+body{
+    font-family:Verdana, Geneva, sans-serif;
+    background-color:floralwhite;
+    font-size:12px;
+}
+
+.label-container{
+    position:fixed;
+    bottom:48px;
+    right:135px;
+    display:table;
+    visibility: hidden;
+    font-size:24px;
+    margin-top:18px;
+}
 
 
-  //element.classList.add("Visible");
-</script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+.label-text{
+    color:#FFF;
+    background:rgba(51,51,51,0.5);
+    display:table-cell;
+    vertical-align:middle;
+    padding:10px;
+    border-radius:3px;
+}
+
+.label-arrow{
+    display:table-cell;
+    vertical-align:middle;
+    color:#333;
+    opacity:0.5;
+}
+
+.float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:70px;
+    background-color:#0C9;;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    z-index:1000;
+    animation: bot-to-top 3s ease-out;
+}
+
+
+.loat{
+    position:fixed;
+    width: 355px;
+    height: 125px;
+    bottom: 600px;
+    left:0px;
+    background-color:linear-gradient(to right, #333333, #dd1818);
+    color:#FFF;
+    border-radius:10px;
+    text-align:center;
+    z-index:1000;
+    animation: lft-to-ryt 2s ease-out;
+}
+
+
+.form{
+    position:fixed;
+    width: 175px;
+    height: 30px;
+    bottom: 590px;
+    left:  1200px;
+    background-color: linear-gradient(to right, #333333, #dd1818);
+    color:#FFF;
+    border-radius:10px;
+    text-align:center;
+    z-index:1000;
+    animation: ryt-to-lft 2s ease-out;
+}
+
+.sail{
+    position:fixed;
+    width: 75px;
+    height: 55px;
+    bottom: 500px;
+    left:  1315px;
+    background-color:orangered;
+    color:#FFF;
+    border-radius:10px;
+    text-align:center;
+    font-weight: bold;
+    z-index:1000;
+    animation: ryt-to-lft 1s ease-out;
+}
+
+
+.rest{
+    position:fixed;
+    width: 75px;
+    height: 55px;
+    bottom: 430px;
+    left:  1315px;
+    background-color:#0C9;
+    color:#FFF;
+    border-radius:10px;
+    text-align:center;
+    font-weight: bold;
+    z-index:1000;
+    animation: ryt-to-lft 1.5s ease-out;
+}
+
+ul{
+    position:fixed;
+    right:70px;
+    padding-bottom:20px;
+    bottom:80px;
+    z-index:100;
+}
+
+ul li{
+    list-style:none;
+    margin-bottom:10px;
+}
+
+ul li a{
+    background-color:#0C9;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    width:60px;
+    height:60px;
+    display:block;
+}
+
+ul:hover{
+    visibility:visible!important;
+    opacity:1!important;
+}
+
+
+.my-float{
+    font-size:24px;
+    margin-top:18px;
+}
+
+a#menu-share + ul{
+  visibility: hidden;
+}
+
+a#menu-share:hover + ul{
+  visibility: visible;
+  animation: scale-in 0.5s;
+}
+
+a#menu-share img{
+    animation: rotate-in 1s;
+}
+
+a#menu-share:hover > img{
+    animation: rotate-out 0.5s;
+}
+
+@keyframes bot-to-top {
+    0%   {bottom:-40px}
+    50%  {bottom:40px}
+}
+@keyframes lft-to-ryt {
+    0%   {left:-40px}
+    50%  {left:40px}
+}
+@keyframes ryt-to-lft {
+    0%   {left:1600px}
+    50%  {left:1400px}
+}
+@keyframes scale-in {
+    from {transform: scale(0);opacity: 0;}
+    to {transform: scale(1);opacity: 1;}
+}
+
+@keyframes rotate-in {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}
+
+@keyframes widg-rot {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-out {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+
+div.extra{
+    width: 0px;
+}
+
+
+
+div.widget
+{
+  background-image: url("rd-cover.jpg");
+  background-repeat: no-repeat;
+  position: relative;
+  top: 10px;
+  right: 40px;
+  width: 200px;
+  height: 300px;
+  margin: 150px auto;
+  border-radius: 9px;
+  padding: 25px;
+  padding-right: 30px;
+  box-shadow: 0px 41px 35px -26px black;
+}
+
+
+#icon{
+    height: 110px;
+    width: 110px;
+}
+
+#location
+{
+  font-size: 21px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-top: 5px;
+  color: ghostwhite;
+}
+
+#temp
+{
+  font-size: 45px;
+  color: white;
+  font-weight: 100;
+}
+
+#wind_speed{
+    font-size: 20px;
+    color: white;
+}
+
+
+</style>
+<style type="text/css">
+
+:root {
+    --bg: #e3e4e8;
+    --fg: #17181c;
+    --input: #ffffff;
+    --primary: #255ff4;
+    --dur: 1s;
+    font-size: calc(16px + (24 - 16)*(100vw - 320px)/(1280 - 320));
+}
+
+form, #search, .caret {
+    margin: auto;
+}
+form {
+    position: relative;
+    width: 100%;
+    max-width: 17em;
+}
+#search, .caret {
+    display: block;
+    transition: all calc(var(--dur) * 0.5) linear;
+}
+#search{
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.25em inset;
+    caret-color: var(--primary);
+    width: 2em;
+    height: 2em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+#search:focus, #search:valid {
+    background: var(--input);
+    border-radius: 0.25em;
+    box-shadow: none;
+    padding: 0.75em 1em;
+    transition-duration: calc(var(--dur) * 0.25);
+    transition-delay: calc(var(--dur) * 0.25);
+    width: 100%;
+    height: 3em;
+}
+#search:focus {
+    animation: showCaret var(--dur) steps(1);
+    outline: transparent;
+}
+#search:focus + .caret, #search:valid + .caret {
+    animation: handleToCaret var(--dur) linear;
+    background: transparent;
+    width: 1px;
+    height: 1.5em;
+    transform: translate(0,-1em) rotate(-180deg) translate(7.5em,-0.25em);
+}
+#search::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+#sch{
+    color: #e3e4e8;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+.caret {
+    background: black;
+    border-radius: 0 0 0.125em 0.125em;
+    margin-bottom: -0.6em;
+    width: 0.25em;
+    height: 1em;
+    transform: translate(0,-1em) rotate(-45deg) translate(0,0.875em);
+    transform-origin: 50% 0;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {   
+    :root {
+        --bg: #17181c;
+        --fg: #e3e4e8;
+        --input: white;
+        --primary: #5583f6;
+    }
+}
+
+/* Animations */
+@keyframes showCaret {
+    from {
+        caret-color: transparent;
+    }
+    to {
+        caret-color: var(--primary);
+    }
+}
+@keyframes handleToCaret {
+    from {
+        background: currentColor;
+        width: 0.25em;
+        height: 1em;
+        transform: translate(0,-1em) rotate(-45deg) translate(0,0.875em);
+    }
+    25% {
+        background: white;
+        width: 0.25em;
+        height: 1em;
+        transform: translate(0,-1em) rotate(-180deg) translate(0,0.875em);
+    }
+    50%, 62.5% {
+        background: var(--primary);
+        width: 1px;
+        height: 1.5em;
+        transform: translate(0,-1em) rotate(-180deg) translate(7.5em,2.5em);
+    }
+    75%, 99% {
+        background: var(--primary);
+        width: 1px;
+        height: 1.5em;
+        transform: translate(0,-1em) rotate(-180deg) translate(7.5em,-0.25em);
+    }
+    87.5% {
+        background: var(--primary);
+        width: 1px;
+        height: 1.5em;
+        transform: translate(0,-1em) rotate(-180deg) translate(7.5em,0.125em);
+    }
+    to {
+        background: transparent;
+        width: 1px;
+        height: 1.5em;
+        transform: translate(0,-1em) rotate(-180deg) translate(7.5em,-0.25em);
+    }
+}
+</style>
 </head> 
+
+
+
 <body>
-    <div class="container-fluid">
-        <div class="row">
+    <table cellpadding="0" cellspacing = "0" style="width: 100%;">
+        <tr>
+            <td width="0.5pxpx">
+                <div class="extra">
+                <div id ="weather">
+    <h2 style="text-align: center;font-size: 1px;">SHIP HUB</h2>
 
-            <div class="col-sm-9">
-<script async defer src="https://maps.googleapis.com/maps/api/js?
-                key=AIzaSyD6gLOR8qGDJzSPZVN4v3oLiPyHscPY26E&callback=initMap">
- </script>
-
-
-                <div id="map" style="width: 100%; height: 720px;"></div>
-</div>
-                <div class="col-sm-3 right_td">
-                    <h2>SHIP HUB</h2>
-                    <button id="ship_btn"type="submit" onclick="location.href='ships.html'">SHIPS</button>
-                    <button id="ship_btn"type="submit" onclick="location.href='alerts.html'">ALERTS</button>
-                    <button id="ship_btn"type="submit">SEARCH</button>
-
-                    <div class="right-text-update">
-                        <h3><span id="location" ></span></h3>
-                        <h4><span id="temp" ></span>  degree Celsius</h4>
-                        <h4>Pressure: <span id="pressure"></span> millibars</h4>
-                        <h4>Humidity: <span id="humidity"></span> g/m^3</h4>
-                        <h4>Sea Level: <span id="sea_level"></span> m</h4>
-                        <h4>WindSpeed: <span id="wind_speed"></span> km/hr</h4>
-                        <h4 id="weather"></h4>
-                        <img src="" id="icon">
-                    </div>
-
-                </div>
- </div>
- </div>
-
-<script type="text/javascript">
-    var p = [0,0];
-    function initMap() {
-        const hub = {lat: 8.122808, lng: 77.321809};//8.122808, 77.321809
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: new google.maps.LatLng(8.120153, 77.321820)
-        });
-        markerhub = new google.maps.Marker({
-          position : hub,
-          map:map,
-          label:"Hub"
-        })
-
-
-
-      marker = new google.maps.Marker({
-        position : {lat:8.120153,lng:77.321820},//8.120153, 77.321820
-        map: map,
-        label:"21jph001"
-      });
-
-
-      marker.setPosition(map.getCenter());
-
-
-      var x = 0;
-
-      map.addListener('click', function(e) {
-        animatedMove(marker, .5, marker.position, e.latLng);
-      });
-    }
-    google.maps.event.addDomListener(window, 'load', initMap);
-    
-// move marker from position current to moveto in t seconds
-    function animatedMove(marker, t, current, moveto) {
-      var lat = current.lat();
-      var lng = current.lng();
-
-      var deltalat = (moveto.lat() - current.lat()) / 100;
-      var deltalng = (moveto.lng() - current.lng()) / 100;
-  
-      
-      var delay = 300 * t;
-  
-      for (var i = 0; i < 100; i++) {
-        
-        (function(ind) {
-          setTimeout(
-            function() {
-              
-              var lat = marker.position.lat();
-              var lng = marker.position.lng();
-              lat += deltalat;
-              lng += deltalng;
-              
-              
-                p[0] = lat;
-                p[1] = lng;
-                
-              
-              //console.log(p[0]);
-              
-        //flightPlanCoordinates[1] = {lat:marker.getPosition().lat()+deltalat,lng:marker.getPosition().lng()+deltalng};
-              
-              latlng = new google.maps.LatLng(lat, lng);
-              marker.setPosition(latlng);
-              const flightPlanCoordinates = [
-                { lat: 8.122808, lng: 77.321809 },
-                { lat: p[0], lng: p[1] },
-    
-              ];
-              
-              const flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
-                geodesic: true,
-                strokeColor: "#FFFFFF",
-                strokeOpacity: 0.2,
-                strokeWeight: 1,
-              });
-              flightPath.setMap(map);
-              //flightPath.setMap(null);
-              
-            }, delay * ind
+    <h3 style="color:linear-gradient(to right, #333333, #dd1818);"><span id="location" ></span></h3>
+    <h4 style="font-size: 1px"><span id="temp" ></span>&deg</h4>
+    <h4 style="font-size:1px">Pressure: <span id="pressure"></span> millibars</h4>
+    <h4 style="font-size:1px">Humidity: <span id="humidity"></span> g/m^3</h4>
+    <h4 style="font-size:1px">Sea Level: <span id="sea_level"></span> m</h4>
+    <h4 style="font-size:1px">WindSpeed: <span id="wind_speed"></span> km/hr</h4>
+    <h4 id="weather"></h4>
+    <img src="" id="icon">
+</div></div></td>
+            <td><script async defer src="https://maps.googleapis.com/maps/api/js?
+                key=AIzaSyD6gLOR8qGDJzSPZVN4v3oLiPyHscPY26E&callback=initMap"></script>
+                <div id="map" style="width: 1420px; height: 675px;"></div></td>   
             
-          );
-          
-        })(i)
-        
-      }
-      
-      
-    
-    }
-    
-    
+        </tr>
+    </table>
 
-</script>
+<a href="#" class="float" id="menu-share">
+<img src="new_logo.png" style="width: 80px;
+    height: 80px; position: relative;right: 10px;bottom: 5px;"> 
+</a>
+<ul>
+<li><a href="#">
+<input type="image"src="ale.png" style="width: 55px;
+    height: 55px; position: relative; top: 3px;" onclick="location.href='alerts.html'">
+</a></li>
+<li><a href="#" >
+<input type="image" src="adship.png" style="width: 50px;
+    height: 50px; position: relative; top: 8px; left: 2px;"onclick="location.href='ships.html'">
+</a></li>
+</ul>
 
-<div id="alertbox" class="alert-box hidden ">
-  <audio id="audio1" src="alertgp.mp3"></audio>
-  <img  style="height: 50px;width:50px ;"src="alert_icon.png" alt="alert">
-   <a  style="color: #ffffff;" href="alerts.html">
-    There is a new alert
-   </a>
-   
-    <span class="close-alert">&times;</span>
-  </div>
+
+<div class="loat">
+    <div class="widget">
+       <div class="back">
+    <div id ="weather">
+    <h2 style="color: white;font-weight: 70%;">- SHIP HUB -</h2>
+    <p><span id="location" ></span><p>
+    <h7 style="font-size: 40px; color: white;"><span id="temp" ></span>&degC</h7>
+    <h4 style="color: white;font-weight: lighter;">Pressure: <span id="pressure"></span> millibars</h4>
+    <h4 style="color: white;font-weight: lighter;">Humidity: <span id="humidity"></span> g/m^3</h4>
+    <h4 style="color: white;font-weight: lighter;">Sea Level: <span id="sea_level"></span> m</h4>
+    <h4 style="color:white;position: relative;top: 60px;"><img src="wind.png" style="width: 30px;height: 30px;position: relative;top: 10px;"> <span id="wind_speed"></span> m/s</h4>
+
+    <h4 id="weather"></h4>
+    <img style="position: relative;top: 50px;" src="" id="icon">
+       </div>     
+     </div>
+</div>
+
+<div class="form">
+<form>
+    <label for="search" id="sch">Search</label>
+    <input id="search" type="search" pattern=".*\S.*" required>
+    <span class="caret"></span>
+</form>
+</div>
+
+<div class="sail">
+    <p style="position:relative;top: 2px;text-shadow: 2px 2px 5px black;">Sailing</p>
+       <p style="font-size:30px;text-shadow: 2px 2px 5px black;">1</p>
+</div>
+
+<div class="rest">
+    <p style="position:relative;top: 2px;text-shadow: 2px 2px 5px black;">On-Shore</p>
+       <p style="font-size:30px;text-shadow: 2px 2px 5px black;">8</p>
+</div>
+
+
+
+ <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="map.js"></script>
+ 
 </body>
 </html>
+
+        
+ 

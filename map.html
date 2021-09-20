@@ -2,6 +2,12 @@
 
 <html> 
 <head> 
+    
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+  
+  
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
   <title>Google Maps Multiple Markers</title> 
   <script type = "text/javascript">
@@ -31,6 +37,7 @@
 <style type="text/css">
     *{padding:0;margin:0;}
 
+  
 body{
     font-family:Verdana, Geneva, sans-serif;
     background-color:floralwhite;
@@ -412,7 +419,58 @@ form {
 </style>
 </head> 
 
+<script>
 
+
+    const firebaseConfig = {
+     apiKey: "AIzaSyBHuyDvGHCk92E2FPZCF_BsL3mCVXK3iBQ",
+     authDomain: "fisherman-s-guardian.firebaseapp.com",
+     databaseURL: "https://fisherman-s-guardian-default-rtdb.firebaseio.com",
+     projectId: "fisherman-s-guardian",
+     storageBucket: "fisherman-s-guardian.appspot.com",
+     messagingSenderId: "467835259902",
+     appId: "1:467835259902:web:3456a7b660bb145069ceaf",
+     measurementId: "G-V31DCS1X5D"
+   };
+   
+   firebase.initializeApp(firebaseConfig);
+  database=firebase.database()
+  var ref=database.ref('UserAlerts')
+  ref.on('value',gotData,errData)
+  function gotData(data){
+    if(data.val()==null){
+   console.log("null")
+    }else
+ 
+     { showalert()
+   
+       }
+       
+ function showalert(){
+    // alert("hao")
+   const element = document.getElementById("alertbox");
+   // element.classList.remove("hide")
+   //     element.classList.add("show");
+       //if(element.classList.contains("hidden")){
+        
+         element.classList.remove("hidden")
+         element.classList.add("show")
+ 
+     }
+  }
+  function errData(err){
+    alert("error")
+  }
+  function hidealert(){
+       // alert("hai")
+       var element = document.getElementById("alertbox");
+      element.classList.remove("show")
+       element.classList.add("hide")
+      }
+ 
+   //element.classList.add("Visible");
+   
+ </script>
 
 <body>
     <table cellpadding="0" cellspacing = "0" style="width: 100%;">
@@ -495,8 +553,103 @@ form {
  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="map.js"></script>
- 
+<style>
+  .Invisible{
+    display:none;
+  }
+    .alert-box{
+    position: absolute;
+    right: 0;
+    background-color:#E21717 ;
+    font-size: 20px;
+    padding: 15px 40px 15px 15px;
+    top: 15px;
+  min-width: 350px;
+  }
+  .alert-box .close-alert{
+    font-size: 20px;
+    position: absolute;
+    right: 10px;
+    top:30px;
+    cursor: pointer;
+   
+  }
+  .alert-box.show::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 4px;
+    bottom: 0;
+    background-color: #ffffff;
+    width: 100% ;
+    box-sizing: border-box;
+    z-index: 3;
+    animation: hideMeter 7s linear;
+  }
+  @keyframes hideMeter {
+    0%{
+width: 100%;
+    }
+    100%{
+width: 0;
+    }
+
+    
+  }
+  .alert-box.show{
+    animation: showAlert 1.5s ease forwards;
+
+
+  }
+  @keyframes showAlert {
+    0%{
+    transform: translateX(100%);
+    }
+    40%{
+  transform: translateX(-15%);
+    }
+    80%{
+transform: translateX(0%);
+    }
+    100%{
+  transform: translateX(-10px);
+    }
+  }
+  .alert-box.hide{
+    animation: hideAlert 1.5s ease forwards;
+
+
+  }
+  @keyframes hideAlert {
+    0%{
+    transform: translateX(-10px);
+    }
+    40%{
+  transform: translateX(0%);
+    }
+    80%{
+transform: translateX(-15%);
+    }
+    100%{
+  transform: translateX(100%);
+    }
+  }
+  .hidden{
+    visibility: hidden;
+  }
+</style>
+
+
+   
 </body>
+<div id="alertbox" class="alert-box hidden ">
+    <img  style="height: 50px;width:50px ;"src="alert_icon.png" alt="alert">
+     <a  style="color: #ffffff;" href="alerts.html">
+      There is a new alert
+     </a>
+     
+      <span onclick="hidealert()" id="closealert" class="close-alert">&times;</span>
+    </div>
 </html>
 
         
